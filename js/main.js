@@ -4,6 +4,22 @@
 
 
  $(document).ready(function() {
+  //loading page
+  $("#spinner").fadeOut(1000,function(){
+    $("#loading").fadeOut(1000,function(){
+      $("body").css("overflow","auto");
+      $("#loading").remove();
+    });
+  })
+
+//scrollBehavior: 
+$("a[href^='#']").click(function (eventInfo) { 
+  let aHref=eventInfo.target.getAttribute("href");
+  var sectionOffset= $(aHref).offset().top;
+
+  $("html,body").animate({scrollTop:sectionOffset},500)
+});
+
 
   //Open Menue
   $("#menueIcon").click(function () { 
@@ -26,6 +42,11 @@
 
 
 });
+
+
+
+
+
 
 var countDownDate = new Date("Jan 1, 2024 00:00:00").getTime();
 
@@ -50,3 +71,7 @@ var x = setInterval(function() {
     document.getElementById("demo").innerHTML = "EXPIRED";
   }
 }, 1000);
+
+
+
+
