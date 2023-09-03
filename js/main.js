@@ -342,130 +342,155 @@ function getMealByIngredient(ingredientName) {
 
 
 
-
 function contact(){
-siteData.innerHTML='';
-
-form.innerHTML=`
-<form action="" class="form-inputs position-relative">
-<h1 class=pb-2>Contact Us</h1>
-<div class="row gy-3 gx-2">
-
-  <div class="col-md-6">
-    <input oninput="validation()" type="text" class="form-control rounded-2" placeholder="Enter your name" id="userName"/>
-    <div id="wrongName" class=" text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Special characters and numbers not allowed</div>
+  siteData.innerHTML='';
+  
+  form.innerHTML=`
+  <form action="" class="form-inputs position-relative">
+  <h1 class=pb-2>Contact Us</h1>
+  <div class="row gy-3 gx-2">
+  
+    <div class="col-md-6">
+      <input oninput="validation()" type="text" class="form-control rounded-2" placeholder="Enter your name" id="userName"/>
+      <div id="wrongName" class=" text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Special characters and numbers not allowed</div>
+    </div>
+    <div class="col-md-6">
+    <input oninput="validation()" type="text" class="form-control rounded-2" placeholder="Enter your email" id="email"/>
+    <div id="wrongEmail" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Email not valid *exemple@yyy.zzz</div>
   </div>
   <div class="col-md-6">
-  <input oninput="validation()" type="text" class="form-control rounded-2" placeholder="Enter your email" id="email"/>
-  <div id="wrongEmail" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Email not valid *exemple@yyy.zzz</div>
-</div>
-<div class="col-md-6">
-  <input oninput="validation()" type="number" class="form-control rounded-2" placeholder="Enter your phone number" id="phoneNumber"/>
-  <div id="wrongPhone" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid Phone Number</div>
-</div>
+    <input oninput="validation()" type="number" class="form-control rounded-2" placeholder="Enter your phone number" id="phoneNumber"/>
+    <div id="wrongPhone" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid Phone Number</div>
+  </div>
+  
+  <div class="col-md-6">
+    <input oninput="validation()" type="number" class="form-control rounded-2" placeholder="Enter your age" id="age"/>
+  <div id="wrongAge" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid age</div>
+  </div>
+  
+  <div class="col-md-6">
+    <input oninput="validation()" type="password" class="form-control rounded-2 password" placeholder="Enter your password" id="password"/>
+    <div id="wrongPassword" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid password *Minimum eight characters, at least one letter and one number:*</div>
+  </div>
+  <div class="col-md-6">
+    <input oninput="validation()"  type="password" class="form-control rounded-2 password" placeholder="Repeat password" id="repassword"/>
+    <div  id="wrongPassword2" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Passwords don't match</div>
+  </div>
+  </div>
+  <button  id="submitButton" disabled  class="btn btn-outline-danger mt-3 position-absolute top-100 start-50 translate-middle-x">submit</button>     
+  
+  
+  </form>
+  
+  `
+  }
+  
+    function validation() {
+      var nameValid = validateName();
+      var emailValid = validateEmail();
+      var phoneValid = validatePhoneNumber();
+      var ageValid = validateAge();
+      var passwordValid = validatePassword();
+      var rePasswordValid = validateRePassword();
+      if(nameValid==true &&  emailValid==true &&  phoneValid==true &&  ageValid==true &&  passwordValid==true && rePasswordValid == true ){
+        document.getElementById("submitButton").disabled = false;    
+      }else{
+        document.getElementById("submitButton").disabled = true;    
+      }
+    }
+  
+  function validateName() {
+    var userName=document.querySelector("#userName").value;
+  
+    var regeName = /^[a-zA-Z ]+$/.test(userName);
+    
+    if (regeName == true) {
+      document.getElementById("wrongName").classList.add("d-none");
+      return true
 
-<div class="col-md-6">
-  <input oninput="validation()" type="number" class="form-control rounded-2" placeholder="Enter your age" id="age"/>
-<div id="wrongAge" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid age</div>
-</div>
-
-<div class="col-md-6">
-  <input oninput="validation()" type="text" class="form-control rounded-2 password" placeholder="Enter your password" id="password"/>
-  <div id="wrongPassword" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Enter valid password *Minimum eight characters, at least one letter and one number:*</div>
-</div>
-<div class="col-md-6">
-  <input oninput="validation()"  type="text" class="form-control rounded-2 password" placeholder="Repeat password" id="repassword"/>
-  <div  id="wrongPassword2" class="text-center p-3 bg-danger w-100 rounded-2 mt-2 mb-2 d-none">Passwords don't match</div>
-</div>
-</div>
-<button  id="submitButton" disabled  class="btn btn-outline-danger mt-3 position-absolute top-100 start-50 translate-middle-x">submit</button>     
-
-
-</form>
-
-`
-}
-
-  function validation() {
-    var nameValid = validateName();
-    var emailValid = validateEmail();
-    var phoneValid = validatePhoneNumber();
-    var ageValid = validateAge();
-    var passwordValid = validatePassword();
-    var rePasswordValid = validateRePassword();
-    if(nameValid==true &&  emailValid==true &&  phoneValid==true &&  ageValid==true &&  passwordValid==true && rePasswordValid == true ){
-      document.getElementById("submitButton").disabled = false;    
-    }else{
-      document.getElementById("submitButton").disabled = true;    
+    } else {
+      document.getElementById("wrongName").classList.replace("d-none", "d-flex");
+      return false
     }
   }
 
-function validateName() {
-  var userName=document.querySelector("#userName").value;
-
-  var regeName = /^[a-zA-Z ]+$/.test(userName);
+  function validateEmail() {
+    var email=document.querySelector("#email").value
   
-  if (regeName == true) {
-    document.getElementById("wrongName").classList.add("d-none");
-  } else {
-    document.getElementById("wrongName").classList.replace("d-none", "d-flex");
+    var regeEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+    if (regeEmail == true) {
+      document.getElementById("wrongEmail").classList.add("d-none");
+      return true
+
+    } else {
+      document.getElementById("wrongEmail").classList.replace("d-none", "d-flex");
+      return false
+
+    }
   }
-}
+  
+  function validatePhoneNumber() {
+    var phoneNumber=document.querySelector("#phoneNumber").value;
+    var regePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phoneNumber);
+    if (regePhone == true) {
+      document.getElementById("wrongPhone").classList.add("d-none");
+      return true
 
-function validateEmail() {
-  var email=document.querySelector("#email").value
+    } else {
+      document.getElementById("wrongPhone").classList.replace("d-none", "d-flex");
+      return false
 
-  var regeEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-  if (regeEmail == true) {
-    document.getElementById("wrongEmail").classList.add("d-none");
-  } else {
-    document.getElementById("wrongEmail").classList.replace("d-none", "d-flex");
+    }
   }
-}
 
-function validatePhoneNumber() {
-  var phoneNumber=document.querySelector("#phoneNumber").value;
-  var regePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phoneNumber);
-  if (regePhone == true) {
-    document.getElementById("wrongPhone").classList.add("d-none");
-  } else {
-    document.getElementById("wrongPhone").classList.replace("d-none", "d-flex");
+  function validateAge() {
+    var age=document.querySelector("#age").value;
+  
+    var regeAge = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(age);
+  
+    if (regeAge == true) {
+      document.getElementById("wrongAge").classList.add("d-none");
+      return true
+
+    } else {
+      document.getElementById("wrongAge").classList.replace("d-none", "d-flex");
+      return false
+
+    }
   }
-}
+  
+  function validatePassword() {
+    var password=document.querySelector("#password").value;
+  
+    var regePassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(password);
+
+    if (regePassword == true) {
+      document.getElementById("wrongPassword").classList.add("d-none");
+      return true
+    } else {
+      document.getElementById("wrongPassword").classList.replace("d-none", "d-flex");
+      return false
+    }
 
 
-function validateAge() {
-  var age=document.querySelector("#age").value;
 
-  var regeAge = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(age);
-
-  if (regeAge == true) {
-    document.getElementById("wrongAge").classList.add("d-none");
-  } else {
-    document.getElementById("wrongAge").classList.replace("d-none", "d-flex");
   }
-}
+  
+  function validateRePassword() {
+  
+  
+    if (document.querySelector("#repassword").value == document.querySelector("#password").value) {
+      document.getElementById("wrongPassword2").classList.add("d-none");
+      return true
 
-function validatePassword() {
-  var password=document.querySelector("#password").value;
+    } else {
+      document.getElementById("wrongPassword2").classList.replace("d-none", "d-flex");
+      return false
 
-  var regePassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(password);
-  if (regePassword == true) {
-    document.getElementById("wrongPassword").classList.add("d-none");
-  } else {
-    document.getElementById("wrongPassword").classList.replace("d-none", "d-flex");
+    }
   }
-}
-
-function validateRePassword() {
-
-
-  if (document.querySelector("#repassword").value == document.querySelector("#password").value) {
-    document.getElementById("wrongPassword2").classList.add("d-none");
-  } else {
-    document.getElementById("wrongPassword2").classList.replace("d-none", "d-flex");
-  }
-}
+  
+  
 
 
 
