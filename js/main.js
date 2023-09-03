@@ -381,10 +381,11 @@ function contact(){
   
   
   </form>
-  
+
   `
-  }
-  
+}
+
+
     function validation() {
       var nameValid = validateName();
       var emailValid = validateEmail();
@@ -392,6 +393,7 @@ function contact(){
       var ageValid = validateAge();
       var passwordValid = validatePassword();
       var rePasswordValid = validateRePassword();
+
       if(nameValid==true &&  emailValid==true &&  phoneValid==true &&  ageValid==true &&  passwordValid==true && rePasswordValid == true ){
         document.getElementById("submitButton").disabled = false;    
       }else{
@@ -399,100 +401,116 @@ function contact(){
       }
     }
   
+
+
   function validateName() {
-    var userName=document.querySelector("#userName").value;
+    var userName = document.querySelector("#userName").value.trim();
+  
+    if (userName === '') {
+      document.getElementById("wrongName").classList.add("d-none");
+      return false;
+    }
   
     var regeName = /^[a-zA-Z ]+$/.test(userName);
-    
-    if (regeName == true) {
+    if (regeName) {
       document.getElementById("wrongName").classList.add("d-none");
-      return true
-
+      return true;
     } else {
       document.getElementById("wrongName").classList.replace("d-none", "d-flex");
-      return false
+      return false;
     }
   }
-
+  
   function validateEmail() {
-    var email=document.querySelector("#email").value
+    var email = document.querySelector("#email").value.trim();
+  
+    if (email === '') {
+      document.getElementById("wrongEmail").classList.add("d-none");
+      return false;
+    }
   
     var regeEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-    if (regeEmail == true) {
+    if (regeEmail) {
       document.getElementById("wrongEmail").classList.add("d-none");
-      return true
-
+      return true;
     } else {
       document.getElementById("wrongEmail").classList.replace("d-none", "d-flex");
-      return false
-
+      return false;
     }
   }
   
   function validatePhoneNumber() {
-    var phoneNumber=document.querySelector("#phoneNumber").value;
-    var regePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phoneNumber);
-    if (regePhone == true) {
+    var phoneNumber = document.querySelector("#phoneNumber").value.trim();
+  
+    if (phoneNumber === '') {
       document.getElementById("wrongPhone").classList.add("d-none");
-      return true
-
+      return false;
+    }
+  
+    var regePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phoneNumber);
+    if (regePhone) {
+      document.getElementById("wrongPhone").classList.add("d-none");
+      return true;
     } else {
       document.getElementById("wrongPhone").classList.replace("d-none", "d-flex");
-      return false
-
+      return false;
     }
   }
-
+  
   function validateAge() {
-    var age=document.querySelector("#age").value;
+    var age = document.querySelector("#age").value.trim();
+  
+    if (age === '') {
+      document.getElementById("wrongAge").classList.add("d-none");
+      return false;
+    }
   
     var regeAge = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(age);
   
-    if (regeAge == true) {
+    if (regeAge) {
       document.getElementById("wrongAge").classList.add("d-none");
-      return true
-
+      return true;
     } else {
       document.getElementById("wrongAge").classList.replace("d-none", "d-flex");
-      return false
-
+      return false;
     }
   }
   
   function validatePassword() {
-    var password=document.querySelector("#password").value;
+    var password = document.querySelector("#password").value.trim();
+  
+    if (password === '') {
+      document.getElementById("wrongPassword").classList.add("d-none");
+      return false;
+    }
   
     var regePassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(password);
-
-    if (regePassword == true) {
+  
+    if (regePassword) {
       document.getElementById("wrongPassword").classList.add("d-none");
-      return true
+      return true;
     } else {
       document.getElementById("wrongPassword").classList.replace("d-none", "d-flex");
-      return false
+      return false;
     }
-
-
-
   }
   
   function validateRePassword() {
+    var repassword = document.querySelector("#repassword").value.trim();
   
-  
-    if (document.querySelector("#repassword").value == document.querySelector("#password").value) {
+    if (repassword === '') {
       document.getElementById("wrongPassword2").classList.add("d-none");
-      return true
-
+      return false;
+    }
+  
+    if (repassword === document.querySelector("#password").value) {
+      document.getElementById("wrongPassword2").classList.add("d-none");
+      return true;
     } else {
       document.getElementById("wrongPassword2").classList.replace("d-none", "d-flex");
-      return false
-
+      return false;
     }
   }
-  
-  
-
-
 
 
 //jquery
